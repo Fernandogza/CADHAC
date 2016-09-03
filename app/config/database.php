@@ -1,0 +1,19 @@
+<?php
+/**
+ * Configuracion de la base de datos
+ */
+ //*/
+R::setup('mysql:host=localhost;dbname=CADHAC', // host|ip; nombre de la base de datos
+         'root', //user
+         'admin'); //password
+         //mysql
+//*/
+
+/*/ PostgreSQL
+R::setup( 'pgsql:host=localhost;dbname=mydatabase',
+        'user', 'password' );
+//*/
+
+/*/ SQLite3
+R::setup( 'sqlite:/tmp/dbfile.db' );
+//*/

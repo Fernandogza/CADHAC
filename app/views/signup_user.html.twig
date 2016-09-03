@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Eventos - ITESM</title>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../web/css/materialize.min.css"  media="screen,projection"/>
+    <style>
+    </style>
+    <meta charset="UTF-8"></meta>
+  </head>
+  <body class="white">
+    <div class="container">
+      <div class="row">
+      <a href="../login" class="blue-text modal-trigger" style="margin-left: 20px;"><img src="icono1.png" style="width:40%; margin-left:30%; padding-top: 50px;"  /></a>
+        
+      </div>
+      <div class="row">
+        <div class="col s12 m6 offset-m3">
+          <div class="card">
+            <form id="signupForm" action="" method="POST">
+              <div class="card-content black-text">
+                <div class="input-field col s12">
+                  <input name="email" id="email" type="text" class="validate" />
+                  <span class="error">{{ email_error }}</span></p>
+                  <label for="user">Email</label>
+                </div>
+                <div class="input-field col s12">
+                  <input name="password" id="password" type="password" class="validate">
+                  <label for="password">Password</label>
+                </div>
+                <div class="input-field col s12">
+                  <input name="firstName" id="firstName" type="text" class="validate">
+                  <label for="firstName">Nombre</label>
+                </div>
+                <div class="input-field col s12">
+                  <input name="lastName" id="lastName" type="text" class="validate">
+                  <label for="lastName">Apellidos</label>
+                </div>
+              </div>
+              <div class="card-action">
+                <button type="submit" form="signupForm" value="Signup" class="btn waves-effect waves-light" style="float:right; margin-bottom:20px; margin-right: 20px;" id="login-btn">Register
+                  <i class="mdi-content-send right"></i>
+
+                </button>
+                 <a href="../login" class="blue-text modal-trigger" style="margin-left: 20px;">Go back</a>
+                <br>
+              </div>
+            </form>
+
+          </div>
+         
+        </div>
+
+      </div>
+    </div>
+    <script src="../web/js/jQuery.min.js"></script>
+    <script type="text/javascript" src="../web/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function(){
+      });
+    </script>
+  </body>
+</html>

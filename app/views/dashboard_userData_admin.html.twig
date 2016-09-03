@@ -1,0 +1,235 @@
+{% extends "base/template.html.twig" %}
+
+{% block content %}
+<div class="row" style="margin-top: 30px;">
+  <div class="col s4 center">
+    <div class="col s12">
+       <img class="materialboxed" width="150" src="{{users.picture}}">
+    </div>
+  </div>
+  <div class="col s4">
+    <table>
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Name:</td>
+          <td>{{users.first_name}} {{users.last_name}}</td>
+        </tr>
+        <tr>
+          <td>E-mail:</td>
+          <td>{{users.email}}</td>
+        </tr>
+        <tr>
+          <td>Company:</td>
+          <td>{{users.company}}</td>
+        </tr>
+        <tr>
+          <td>T-Shirt Size:</td>
+          <td>{{users.tShirtSize}}</td>
+        </tr>
+        <tr>
+          <td>Food Preference:</td>
+          <td>{{users.foodPreference}}</td>
+        </tr>
+        <tr>
+          <td>Special Needs:</td>
+          <td>{{users.specialNeeds}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <h5 class="center">Calendario</h5>
+  <div class="col s12 m12 l6 offset-l3" id="calendar">
+  </div>
+</div>
+<div class="row">
+  <h5 class="center">Attended/Going Events</h5>
+  <div class="col s12 m12 l6 offset-l3" id="table_div">
+  </div>
+</div>
+<div class="row">
+  <div class ="col s12 m12 l6 offset-l3">
+    <div id="vis_div" style="height:500px"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l6 offset-l3">
+    <button class="btn waves-effect waves-light" type="submit" name="action" onclick="loadEditor()">Edit graph
+      <i class="material-icons right">send</i>
+    </button>
+  <div>
+</div>
+{% endblock content %}
+{% block customjs %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/lang/es.js'></script>
+<script type="text/javascript">
+  google.load("visualization", "1.1", {packages:["table"]});
+  google.load('visualization', '1.0', {packages: ['charteditor']});
+  google.setOnLoadCallback(drawTable);
+  google.setOnLoadCallback(drawChartEditor);
+  $(document).ready(function(){
+    loadCalendarioAjax();
+  });
+  function drawTable() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('string', 'Place');
+    data.addColumn('date', 'Date');
+    var events = {{events|json_encode|raw}};
+    for(i=0; i<events.length; i++) {
+      if(events[i].status == "going") {
+        data.addRow([
+          events[i].name,
+          events[i].place,
+          new Date(events[i].date)
+        ]);
+      }
+    }
+    var table = new google.visualization.Table(document.getElementById('table_div'));
+    table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+  }
+
+  var chartEditor = null;
+  var wrapper = null;
+  var chartEditorDiv = null;
+
+  function drawChartEditor() {
+    chartEditorDiv = document.getElementById('vis_div');
+    chartEditor = new google.visualization.ChartEditor();
+    google.visualization.events.addListener(chartEditor, 'ok', redrawChart);
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Month');
+    data.addColumn('number', 'Attended');
+    data.addColumn('number', 'Not-Attended');
+    var events = {{events|json_encode|raw}};
+    var pData = processInfo(events);
+    for(i=0; i<pData.length; i++) {
+      data.addRow([
+        pData[i].date,
+        pData[i].attended,
+        pData[i].notattended,
+      ]);
+    }
+    // Create the chart to edit.
+    wrapper = new google.visualization.ChartWrapper({
+      'chartType':'BarChart',
+      dataTable: data,
+      options: {'title': 'Events in 2015/2016'},
+      containerId: 'visualization'
+    });
+    wrapper.draw(chartEditorDiv);
+  }
+  function redrawChart(){
+    chartEditor.getChartWrapper().draw(chartEditorDiv);
+  }
+  function loadEditor() {
+    chartEditor.openDialog(wrapper, {});
+  }
+  function processInfo(events) {
+    var pData = [
+          {date:"Jan 2015", attended:0, notattended:0},
+          {date:"Feb 2015", attended:0, notattended:0},
+          {date:"Mar 2015", attended:0, notattended:0},
+          {date:"Apr 2015", attended:0, notattended:0},
+          {date:"May 2015", attended:0, notattended:0},
+          {date:"Jun 2015", attended:0, notattended:0},
+          {date:"Jul 2015", attended:0, notattended:0},
+          {date:"Aug 2015", attended:0, notattended:0},
+          {date:"Sep 2015", attended:0, notattended:0},
+          {date:"Oct 2015", attended:0, notattended:0},
+          {date:"Nov 2015", attended:0, notattended:0},
+          {date:"Dec 2015", attended:0, notattended:0},
+          {date:"Jan 2016", attended:0, notattended:0},
+          {date:"Feb 2016", attended:0, notattended:0},
+          {date:"Mar 2016", attended:0, notattended:0},
+          {date:"Apr 2016", attended:0, notattended:0},
+          {date:"May 2016", attended:0, notattended:0},
+          {date:"Jun 2016", attended:0, notattended:0},
+          {date:"Jul 2016", attended:0, notattended:0},
+          {date:"Aug 2016", attended:0, notattended:0},
+          {date:"Sep 2016", attended:0, notattended:0},
+          {date:"Oct 2016", attended:0, notattended:0},
+          {date:"Nov 2016", attended:0, notattended:0},
+          {date:"Dec 2016", attended:0, notattended:0}];
+    for(i=0; i<events.length; i++) {
+      var date = new Date(events[i].date);
+      var monthNum = date.getMonth();
+      var year = date.getFullYear();
+      var index = year == "2015" ? monthNum : monthNum+12;
+      if(events[i].status == 'going') {
+        pData[index].attended+=1;
+      }
+      else {
+        pData[index].notattended+=1;
+      }
+    }
+    return pData;
+  }
+  var calendar = [];
+
+  function formatSeconds(seconds) {
+      var date = new Date(seconds*1000);
+      var iso = date.toISOString().match(/(\d{4}\-\d{2}\-\d{2})T(\d{2}:\d{2}:\d{2})/)
+      return iso[1] + "T" + iso[2];
+  }
+
+  function loadCalendarioAjax() {
+
+    $.get('/api/personalschedule/user/' + {{users.id}}, function(actividads) {
+
+      var json = JSON.parse(actividads);
+
+      actividads = json.data;
+
+      for(var i = 0; i < actividads.length; i++) {
+        var eventId = json.data[i].id;
+        var eventStart = json.data[i].start_date;
+        var eventEnd = json.data[i].end_date;
+        var eventTitle = json.data[i].name;
+        var newEvent = {
+          title : eventTitle,
+          allDay : false,
+          start: formatSeconds(eventStart),
+          end: formatSeconds(eventEnd)
+        };
+
+        calendar[i] = newEvent;
+
+        $('#calendar').fullCalendar('renderEvent', newEvent);
+
+      }
+
+      $('#calendar').fullCalendar({
+        lang: 'es',
+
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        defaultView: 'agendaWeek',
+        events: calendar,
+        eventClick: function(data, event, view) {
+          var content = '<h3>'+data.title+'</h3>' +
+            '<p><b>Start:</b> '+data.start+'<br />' +
+            (data.end && '<p><b>End:</b> '+data.end+'</p>' || '');
+
+          tooltip.set({
+            'content.text': content
+          })
+          .reposition(event).show(event);
+        }
+        });
+      });
+
+  }
+</script>
+{% endblock customjs %}

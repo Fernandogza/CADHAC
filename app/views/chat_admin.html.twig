@@ -1,0 +1,170 @@
+{% extends "base/template.html.twig" %}
+{% block content %}
+    <main>
+      <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <table>
+              <tbody>
+                <tr>
+                  <td class="center"><a href="#newMessage" class="waves-effect waves-light btn white-text cyan darken-2 modal-trigger"><i class="mdi-communication-email left"></i>Nuevo Mensaje</a></td>
+                  <td class="center"><a href="#blockUser" class="waves-effect waves-light btn white-text cyan darken-2 modal-trigger"><i class="mdi-content-block left"></i>Lista de Usuarios Bloqueados</a></td>
+                </tr>
+              </tbody>
+            </table>
+          <div>
+            <ul class="collection" id="conversations">
+            </ul>
+          </div>
+      </div>
+    </main>
+    <!-- modal form: new message -->
+    <div class="modal" id="newMessage">
+      <div class="modal-content">
+        <h3 class="center">Nuevo mensaje</h3>
+        <form class="col s12" id="newMsg" method="post" action="/chat/newmsg">
+          <div class="row">
+            <div class="input-field col s6">
+              <select name="userId" id="userId">
+              </select>
+              <label>Usuario</label>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mode_edit</i>
+              <textarea name="message" id="message" class="materialize-textarea"></textarea>
+              <label for="icon_prefix2">Mensaje</label>
+            </div>
+          </div>
+            <div class="modal-footer">
+              <a href="javascript:{}" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('newMsg').submit();">Enviar mensaje</a>
+              <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+            </div>
+        </form>
+      </div>
+    </div>
+    <!-- Termino del modal -->
+
+    <!-- modal form: block user -->
+    <div class="modal" id="blockUser">
+      <div class="modal-content">
+        <h5 class="center">Blocked users list</h5>
+        <div class="row">
+          <div id="blockedUsers" class="collection col s5">
+          </div>
+          <div class="col s5 offset-s2">
+            <form id="blockForm" method="post" action="/block">
+              <p>Agregar usuario a la lista:</p>
+              <select name="blockedUser" id="possibleToBlock">
+              </select>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:{}" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('blockForm').submit();">Bloquear</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+        </div>
+      </div>
+    </div>
+    <!-- Termino del modal -->
+    {% endblock content %}
+    {% block customjs %}
+    <script>
+      $(document).ready(function(){
+        //Loads chats
+        var chats = {{ chats|json_encode|raw}};
+        var inbox = document.getElementById("conversations");
+
+        for(i=0; i<chats.length; i++) {
+          var row = chats[i];
+          var groupChatTitle = "";
+          var profile_url = "/viewProfile/";
+          for(j=0; j<row.length; j++) {
+            groupChatTitle = groupChatTitle + row[j].first_name + " " + row[j].last_name + " ";
+            profile_url = profile_url + row[j].id;
+          }
+          var listItem = document.createElement("li");
+          var avatar = document.createElement("img");
+          var profileLink = document.createElement("a");
+          var title = document.createElement("span");
+          var openChat = document.createElement("a");
+          var deleteChat = document.createElement("a");
+          var deleteIcon = document.createElement("i");
+
+          listItem.className = 'collection-item avatar';
+          avatar.className = 'circle';
+          title.className = 'Title';
+          deleteChat.className = 'secondary-content';
+          deleteIcon.className = 'material-icons';
+
+          if(chats[i].picture == null) {
+            avatar.src = "../web/img/profilePics/unknown.jpg";
+          } else {
+            avatar.src = chats[i].picture;
+          }
+
+          title.innerHTML = groupChatTitle + '<br>';
+          //profileLink.setAttribute('href', profile_url);
+          profileLink.style.color = "black";
+          var link = "/chat/"+ row[0].conversation_id;
+          openChat.setAttribute('href', link);
+          link = "/chat/delete/"+ row[0].conversation_id;
+          deleteChat.setAttribute('href', link);
+          openChat.innerHTML = "Open chat";
+          deleteIcon.innerHTML = "delete";
+
+          listItem.appendChild(avatar);
+          profileLink.appendChild(title);
+          listItem.appendChild(profileLink);
+          listItem.appendChild(openChat);
+          deleteChat.appendChild(deleteIcon);
+          listItem.appendChild(deleteChat);
+          inbox.appendChild(listItem);
+        }
+
+        //Load user list (Sending msg)
+        var sel = document.getElementById("userId");
+        var userList = {{usersList|json_encode|raw}}
+        for(var i = 0; i < userList.length; i++) {
+          var opt = document.createElement('option');
+          opt.innerHTML = userList[i].first_name + " " + userList[i].last_name;
+          opt.value = userList[i].id;
+          sel.appendChild(opt);
+        }
+
+        //Load blocked user list
+        var blockedList = {{blockedList|json_encode|raw}}
+        var collection = document.getElementById("blockedUsers");
+        if(blockedList.length == 0) {
+          var item = document.createElement('div');
+          item.className = 'collection-item';
+          item.innerHTML = 'No hay usuarios bloqueados';
+          collection.appendChild(item);
+        }
+        for(i=0; i<blockedList.length; i++) {
+          var item = document.createElement('div');
+          var removeBlockedUser = document.createElement('a');
+
+          item.className = 'collection-item';
+          removeBlockedUser.className = 'secondary-content';
+
+          item.innerHTML = blockedList[i].first_name + " " + blockedList[i].last_name;
+          var link = '/unblock/' + blockedList[i].id;
+          removeBlockedUser.innerHTML = 'X';
+          removeBlockedUser.setAttribute('href', link);
+          item.appendChild(removeBlockedUser);
+          collection.appendChild(item);
+        }
+
+        //Possible users to block
+        sel = document.getElementById("possibleToBlock");
+        for(i = 0; i < userList.length; i++) {
+          var opt = document.createElement('option');
+          opt.innerHTML = userList[i].first_name + " " + userList[i].last_name;
+          opt.value = userList[i].id;
+          sel.appendChild(opt);
+        }
+
+        $('select').material_select();
+        $(".button-collapse").sideNav();
+      });
+    </script>
+  {% endblock customjs %}
