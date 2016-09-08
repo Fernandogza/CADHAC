@@ -15,7 +15,7 @@
 // Instantiate application
 $app = new \Slim\Slim(require_once ROOT . 'app/config/app.php');
 //Nombre del sitio:
-$app->setName('Eventos');
+$app->setName('CADHAC');
 
 
 // For native PHP session

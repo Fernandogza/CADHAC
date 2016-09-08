@@ -19,6 +19,15 @@
           height:30px;
           line-height: 30px;
         }
+        body {
+          display: flex;
+          min-height: 100vh;
+          flex-direction: column;
+        }
+
+        main {
+          flex: 1 0 auto;
+        }
       </style>
     {% endblock stylesheets %}
 
@@ -39,30 +48,60 @@
         </div>
       </nav>
       <ul id="acerca_dropdown" class="dropdown-content">
-        <li><a href="#!">Acerca de nosotros</a></li>
-        <li><a href="#!">Contacto</a></li>
+        <li><a href="/sobre_nosotros/acerca">Acerca de nosotros</a></li>
+        <li><a href="/sobre_nosotros/derechos_humanos">Derechos humanos</a></li>
+        <li><a href="/sobre_nosotros/contacto">Ubicación y contacto</a></li>
       </ul>
-      <nav class="teal">
+      <ul id="noticias_dropdown" class="dropdown-content">
+        <li><a href="/noticias/acciones_urgentes">Acciones urgentes</a></li>
+        <li><a href="/noticias/comunicados">Comunicados</a></li>
+        <li><a href="/noticias/publicaciones">Publicaciones</a></li>
+      </ul>
+      <nav class="teal main-nav">
         <div class="navbar-container">
           <div class="nav-wrapper">
-            <a href="#!" class="brand-logo">CADHAC</a>
+            <a href="/" class="brand-logo">CADHAC</a>
             <a href="#" data-activates="mobile-bar" class="button-collapse"><i class="material-icons">menu</i></a>
-            <a href="#" class="right hide-on-small-only"><i class="material-icons">search</i></a>
+            <a href="#" style="padding-left:15px" class="right hide-on-small-only"><i class="material-icons">search</i></a>
             <ul class="right hide-on-med-and-down">
-              <li><a class="dropdown-button" href="#!" data-activates="acerca_dropdown" data-beloworigin="true">Sobre nosotros</a></li>
-              <li><a href="badges.html">Publicaciones</a></li>
-              <li><a href="collapsible.html">Comunicados</a></li>
+              <li><a class="dropdown-button" href="" data-activates="acerca_dropdown" data-beloworigin="true" data-hover="true">Sobre nosotros</a></li>
+              <li><a class="dropdown-button" data-activates="noticias_dropdown" data-beloworigin="true" data-hover="true" href="">Noticias</a></li>
               <li><a href="">Desaparecidos/as</a></li>
               <li><a href="">Videos y Fotografías</a></li>
-              <li><a class="waves-effect waves-light btn-large orange">Done Ahora</a></li>
+              <li><a href="/donativos" class="orange">Done Ahora</a></li>
             </ul>
             <ul class="side-nav" id="mobile-bar">
-              <li><a href="sass.html">Sobre Nosotros</a></li>
-              <li><a href="badges.html">Publicaciones</a></li>
-              <li><a href="collapsible.html">Comunicados</a></li>
+              <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                  <li>
+                    <a class=" collapsible-header waves-effect waves-teal">Sobre nosotros<i class="material-icons right">arrow_drop_down</i></a>
+                    <div class="collapsible-body">
+                      <ul>
+                        <li><a href="/sobre_nosotros/acerca">Acerca de nosotros</a></li>
+                        <li><a href="/sobre_nosotros/derechos_humanos">Derechos humanos</a></li>
+                        <li><a href="/sobre_nosotros/contacto">Ubicación y contacto</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                  <li>
+                    <a class=" collapsible-header waves-effect waves-teal">Noticias<i class="material-icons right">arrow_drop_down</i></a>
+                    <div class="collapsible-body">
+                      <ul>
+                        <li><a href="/noticias/acciones_urgentes">Acciones urgentes</a></li>
+                        <li><a href="/noticias/comunicados">Comunicados</a></li>
+                        <li><a href="/noticias/publicaciones">Publicaciones</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
               <li><a href="">Desaparecidos/as</a></li>
               <li><a href="">Videos y Fotografías</a></li>
-              <li><a class="waves-effect waves-light btn-large orange">Done Ahora</a></li>
+              <li><a href="/donativos" class="orange">Done Ahora</a></li>
             </ul>
           </div>
         </div>
@@ -82,19 +121,15 @@
       <script>
       $(document).ready(function(){
         $(".button-collapse").sideNav();
-        $(".dropdown-button").dropdown({
-          inDuration: 300,
-          outDuration: 225,
-          hover: true,
-          belowOrigin: true,
-          alignment: 'left'
-        });
         $('.carousel.carousel-slider').carousel({
           full_width: true,
         });
+        $('select').material_select();
       });
     </script>
   </body>
+  <main>
+  </main>
   <footer class="page-footer teal">
     <div class="footer-copyright">
       <div class="container">

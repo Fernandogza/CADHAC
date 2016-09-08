@@ -5421,7 +5421,7 @@ button.btn-floating {
   background-color: transparent;
   border: none;
   line-height: inherit;
-  height: inherit;
+  height: 48px;
   padding: 0 16px;
 }
 

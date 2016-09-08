@@ -22,7 +22,7 @@
       <p class="flow-text">Para brindar un donativo mensual automático con cargo a tarjeta, elija la cantidad y haga click en el vínculo correspondiente.</p>
       <div class="row valign-wrapper">
         <div class="input-field col s8 m8 l8">
-          <select>
+          <select id="donativo">
             <option value="" disabled selected>Cantidad</option>
             <option value="1">$50.00</option>
             <option value="2">$100.00</option>
@@ -36,8 +36,11 @@
           </select>
         </div>
         <div class="col s4 m4 l4">
-          <button class="btn waves-effect waves-light" type="submit" name="action">Donar</button>
+          <button class="donativo_mensual btn waves-effect waves-light" type="submit" name="action">Donar</button>
         </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m12 l12">Si desea hacer un donativo mayor mensual por favor <a href="mailto:donativos@cadhac.org" target="_top">comuníquese con nosotros</a></div>
       </div>
     </div>
     <div class="col s12 m6 l6">
@@ -68,6 +71,45 @@
       <p class="flow-text">Favor de llenar los datos fiscales en <a href="https://docs.google.com/a/cadhac.org/forms/d/1mP3OVotsm5IroAiIYx4HkTTwsfjWoEQ3d8H8CEJZkvA/viewform">este formato</a> para enviarle su recibo de donativos</p>
     </div>
   </div>
-  <p class="flow-text center">Si tienen alguna duda por favor escriba a <a href="mailto:cadhac@cadhac.org" target="_top">donativos@cadhac.org</a></p>
+  <p class="flow-text center">Si tienen alguna duda por favor escriba a <a href="mailto:donativos@cadhac.org" target="_top">donativos@cadhac.org</a></p>
 </div>
 {% endblock content %}
+
+{% block customjs %}
+<script>
+  $(".donativo_mensual").on("click", function() {
+    val = $("#donativo").val();
+    if(!!val) {
+      switch(val) {
+        case '1':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QH6VLKTQ3V27E";
+          break;
+        case '2':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7XUP3HQSUQWP2";
+          break;
+        case '3':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LXSE5D4V2VTKN";
+          break;
+        case '4':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W64FZHCKCZUH4";
+          break;
+        case '5':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BKDYEKNV6REWQ";
+          break;
+        case '6':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JQB56BK2LJ7ES";
+          break;
+        case '7':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GUB98VAPZBBR6";
+          break;
+        case '8':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5U8AKFZ4SNZ3U";
+          break;
+        case '9':
+          window.location.href = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=42ATURWPJ6ZB6";
+          break;
+      }
+    }
+  });
+</script>
+{% endblock customjs %}

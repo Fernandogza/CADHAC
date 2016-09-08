@@ -12,4 +12,22 @@ $app->get("/sobre_nosotros/contacto", function () use ($app) {
   $app->render('ubicacion_contacto.html.twig');
 });
 
+$app->get("/noticias/acciones_urgentes", function () use ($app) {
+  $app->render('acciones_urgentes.html.twig');
+});
+
+$app->get("/noticias/comunicados", function () use ($app) {
+  $app->render('comunicados.html.twig');
+});
+
+$app->get("/noticias/publicaciones", function () use ($app) {
+  $app->render('publicaciones.html.twig');
+});
+
+$app->get("/donativos", function () use ($app) {
+  $app->render('donativos.html.twig');
+});
+
+
+
 ?>
