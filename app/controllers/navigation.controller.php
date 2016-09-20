@@ -20,8 +20,20 @@ $app->get("/noticias/comunicados", function () use ($app) {
   $app->render('comunicados.html.twig');
 });
 
+$app->get("/noticias/comunicados/1", function () use ($app) {
+  $app->render('articulo.html.twig');
+});
+
 $app->get("/noticias/publicaciones", function () use ($app) {
   $app->render('publicaciones.html.twig');
+});
+
+$app->get("/desaparecidos", function () use ($app) {
+  $app->render('desaparecidos.html.twig');
+});
+
+$app->get("/media", function () use ($app) {
+  $app->render('media.html.twig');
 });
 
 $app->get("/donativos", function () use ($app) {
