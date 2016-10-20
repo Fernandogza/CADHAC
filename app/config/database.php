@@ -5,7 +5,7 @@
  //*/
 R::setup('mysql:host=localhost;dbname=CADHAC', // host|ip; nombre de la base de datos
          'root', //user
-         'admin'); //password
+         ''); //password
          //mysql
 //*/
 

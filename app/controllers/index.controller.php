@@ -2,7 +2,11 @@
 
 //GET route
 $app->get('/', function () use ($app) {
-  $app->render('home.html.twig');
+  $comunicados = R::find('comunicado');
+  $acciones = R::find('accion_urgente');
+  $data = array('comunicados' => $comunicados,
+                'acciones' => $acciones);
+  $app->render('home.html.twig', $data);
 });
 
 $app->get('/init', function () use ($app) {

@@ -12,34 +12,44 @@ $app->get("/sobre_nosotros/contacto", function () use ($app) {
   $app->render('ubicacion_contacto.html.twig');
 });
 
-$app->get("/noticias/acciones_urgentes", function () use ($app) {
+$app->get("/comunicacion/acciones_urgentes", function () use ($app) {
   $app->render('acciones_urgentes.html.twig');
 });
 
-$app->get("/noticias/comunicados", function () use ($app) {
-  $app->render('comunicados.html.twig');
+$app->get("/comunicacion/comunicados", function () use ($app) {
+  $comunicados = R::find('comunicado');
+  $data = array('comunicados' => $comunicados);
+  $app->render('comunicados.html.twig', $data);
 });
 
-$app->get("/noticias/comunicados/1", function () use ($app) {
-  $app->render('articulo.html.twig');
+$app->get('/comunicacion/comunicados/:id', function ($id) use ($app) {
+  $comunicado = R::load('comunicado', $id);
+  $data = array('comunicado' => $comunicado);
+  $app->render('articulo.html.twig', $data);
 });
 
-$app->get("/noticias/publicaciones", function () use ($app) {
-  $app->render('publicaciones.html.twig');
+$app->get("/comunicacion/publicaciones", function () use ($app) {
+  $publicaciones = R::find('publicacion');
+  $data = array('publicaciones' => $publicaciones);
+  $app->render('publicaciones.html.twig', $data);
 });
 
 $app->get("/desaparecidos", function () use ($app) {
-  $app->render('desaparecidos.html.twig');
+  $desaparecidos = R::find('desaparecido');
+  $data = array('desaparecidos' => $desaparecidos);
+  $app->render('desaparecidos.html.twig', $data);
 });
 
-$app->get("/media", function () use ($app) {
-  $app->render('media.html.twig');
+$app->get("/amores", function () use ($app) {
+  $app->render('amores.html.twig');
+});
+
+$app->get("/comunicacion/videos", function () use ($app) {
+  $app->render('videos.html.twig');
 });
 
 $app->get("/donativos", function () use ($app) {
   $app->render('donativos.html.twig');
 });
-
-
 
 ?>

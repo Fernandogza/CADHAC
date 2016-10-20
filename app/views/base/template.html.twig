@@ -53,8 +53,10 @@
         <li><a href="/sobre_nosotros/contacto">Ubicación y contacto</a></li>
       </ul>
       <ul id="noticias_dropdown" class="dropdown-content">
-        <li><a href="/noticias/comunicados">Comunicados</a></li>
-        <li><a href="/noticias/publicaciones">Publicaciones</a></li>
+        <li><a href="/comunicacion/comunicados">Comunicados</a></li>
+        <li><a href="/comunicacion/acciones">Acciones urgentes</a></li>
+        <li><a href="/comunicacion/videos">Videos</a></li>
+        <li><a href="/comunicacion/publicaciones">Publicaciones</a></li>
       </ul>
       <nav class="teal main-nav">
         <div class="navbar-container">
@@ -64,9 +66,8 @@
             <a href="#" style="padding-left:15px" class="right hide-on-small-only"><i class="material-icons">search</i></a>
             <ul class="right hide-on-med-and-down">
               <li><a class="dropdown-button" data-activates="acerca_dropdown" data-beloworigin="true" data-hover="true">Sobre nosotros</a></li>
-              <li><a class="dropdown-button" data-activates="noticias_dropdown" data-beloworigin="true" data-hover="true">Noticias</a></li>
+              <li><a class="dropdown-button" data-activates="noticias_dropdown" data-beloworigin="true" data-hover="true">Comunicación</a></li>
               <li><a href="/desaparecidos">Desaparecidos/as</a></li>
-              <li><a href="/media">Videos y Fotografías</a></li>
               <li><a href="/donativos" class="orange">Done Ahora</a></li>
             </ul>
             <ul class="side-nav" id="mobile-bar">
@@ -87,7 +88,7 @@
               <li class="no-padding">
                 <ul class="collapsible collapsible-accordion">
                   <li>
-                    <a class=" collapsible-header waves-effect waves-teal">Noticias<i class="material-icons right">arrow_drop_down</i></a>
+                    <a class=" collapsible-header waves-effect waves-teal">Comunicación<i class="material-icons right">arrow_drop_down</i></a>
                     <div class="collapsible-body">
                       <ul>
                         <li><a href="/noticias/comunicados">Comunicados</a></li>
@@ -98,7 +99,6 @@
                 </ul>
               </li>
               <li><a href="">Desaparecidos/as</a></li>
-              <li><a href="">Videos y Fotografías</a></li>
               <li><a href="/donativos" class="orange">Done Ahora</a></li>
             </ul>
           </div>
@@ -119,10 +119,9 @@
       <script>
       $(document).ready(function(){
         $(".button-collapse").sideNav();
-        $('.carousel.carousel-slider').carousel({
-          full_width: true,
-        });
+        $('.carousel.carousel-slider').carousel({full_width: true});
         $('select').material_select();
+        $('.slider').slider({full_width: true});
       });
     </script>
   </body>
