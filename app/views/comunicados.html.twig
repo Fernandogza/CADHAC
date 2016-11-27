@@ -4,7 +4,8 @@
 <div class="container">
   <h4>Comunicados</h4>
   {% for comunicado in comunicados %}
-    <div class="row z-depth-1">
+    {% if loop.index0 > 5 %}
+    <div class="row z-depth-1 scroll">
       <div class="col s12 m4 l4">
         <a href="/comunicacion/comunicados/{{comunicado.id}}">
         <img class="responsive-img" src="/web/comunicados/{{comunicado.imagen}}"></a>
@@ -15,6 +16,104 @@
         <p class="flow-text truncate">{{comunicado.texto}}</p>
       </div>
     </div>
+    {% else %}
+    <div class="row z-depth-1 show">
+      <div class="col s12 m4 l4">
+        <a href="/comunicacion/comunicados/{{comunicado.id}}">
+        <img class="responsive-img" src="/web/comunicados/{{comunicado.imagen}}"></a>
+      </div>
+      <div class="col s12 m8 l8">
+        <a href="/comunicacion/comunicados/{{comunicado.id}}" class="flow-text black-text"><strong>{{comunicado.titulo}}</strong></a>
+        <p class="grey-text">{{comunicado.fecha|date("d M Y")}}</p>
+        <p class="flow-text truncate">{{comunicado.texto}}</p>
+      </div>
+    </div>
+    {% endif %}
   {% endfor %}
 </div>
+<div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+  <a class="btn-floating btn-large green">
+    <i class="material-icons">settings</i>
+  </a>
+  <ul>
+    <li><a class="btn-floating red modal-trigger" href="#addModal"><i class="material-icons">add</i></a></li>
+  </ul>
+</div>
+
+<!-- Add Modal Space -->
+<div id="addModal" class="modal modal-fixed-footer">
+  <form action="/comunicacion/comunicados/new" method="POST" enctype="multipart/form-data">
+    <div class="modal-content">
+      <h4>Nuevo comunicado</h4>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="titulo" name="titulo" type="text" class="validate" required>
+            <label for="titulo">Título</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>Imagen</span>
+              <input type="file" name="image" accept="image/*">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            <p>Formatos soportados: jpg, jpeg, png</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Fecha" name="fecha" id="fecha" type="date" class="datepicker" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="texto" name="texto" class="materialize-textarea" required></textarea>
+            <label for="texto">Texto</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>Más imágenes</span>
+              <input type="file" name="files[]" multiple accept="image/*">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            <p>Formatos soportados: jpg, jpeg, png</p>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action waves-effect waves-green btn-flat ">Crear</button>
+    </div>
+  </form>
+</div>
 {% endblock content %}
+{% block customjs %}
+<script>
+$("textarea").keydown(function(e) {
+  if(e.keyCode === 9) { // tab was pressed
+      // get caret position/selection
+      var start = this.selectionStart;
+          end = this.selectionEnd;
+
+      var $this = $(this);
+
+      // set textarea value to: text before caret + tab + text after caret
+      $this.val($this.val().substring(0, start)
+                  + "\t"
+                  + $this.val().substring(end));
+
+      // put caret at right position again
+      this.selectionStart = this.selectionEnd = start + 1;
+
+      // prevent the focus lose
+      return false;
+  }
+});
+</script>
+{% endblock customjs %}

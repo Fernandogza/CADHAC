@@ -2,8 +2,8 @@
 
 //GET route
 $app->get('/', function () use ($app) {
-  $comunicados = R::find('comunicado');
-  $acciones = R::find('accion_urgente');
+  $comunicados = R::find('comunicado', 'ORDER BY fecha DESC');
+  $acciones = R::find('accion', 'ORDER BY fecha DESC');
   $data = array('comunicados' => $comunicados,
                 'acciones' => $acciones);
   $app->render('home.html.twig', $data);

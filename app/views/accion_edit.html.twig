@@ -1,0 +1,33 @@
+{% extends "base/template.html.twig" %}
+
+{% block content %}
+<div class="container">
+  <form action="/comunicacion/acciones/edit/{{accion.id}}" method="POST">
+    <div class="modal-content">
+      <h4>Editar acción urgente</h4>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="titulo" name="titulo" type="text" class="validate" required value="{{accion.titulo}}">
+            <label for="titulo">Título</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Fecha" name="fecha" id="fecha" type="date" class="datepicker" value="{{accion.fecha}}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="texto" name="texto" class="materialize-textarea">{{accion.texto}}</textarea>
+            <label for="texto">Texto</label>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action waves-effect waves-green btn-flat green white-text">Guardar</button>
+      <button type="button" onclick="location.href='/comunicacion/acciones'" class="modal-action waves-effect waves-green btn-flat red white-text">Cancelar</button>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

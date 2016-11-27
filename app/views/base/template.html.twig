@@ -36,7 +36,7 @@
   </head>
   <header>
     {% block nav %}
-      <nav class="top-navbar teal darken-2" >
+      <nav class="top-navbar green darken-2" >
         <div class="navbar-container">
           <a class="left">Contáctenos: +52 (81) 83435058</a>
           <ul class="right hide-on-small-only">
@@ -48,17 +48,17 @@
         </div>
       </nav>
       <ul id="acerca_dropdown" class="dropdown-content">
-        <li><a href="/sobre_nosotros/acerca">Acerca de nosotros</a></li>
-        <li><a href="/sobre_nosotros/derechos_humanos">Derechos humanos</a></li>
-        <li><a href="/sobre_nosotros/contacto">Ubicación y contacto</a></li>
+        <li><a class="green-text" href="/sobre_nosotros/acerca">Acerca de nosotros</a></li>
+        <li><a class="green-text" href="/sobre_nosotros/derechos_humanos">Derechos humanos</a></li>
+        <li><a class="green-text" href="/sobre_nosotros/contacto">Ubicación y contacto</a></li>
       </ul>
       <ul id="noticias_dropdown" class="dropdown-content">
-        <li><a href="/comunicacion/comunicados">Comunicados</a></li>
-        <li><a href="/comunicacion/acciones">Acciones urgentes</a></li>
-        <li><a href="/comunicacion/videos">Videos</a></li>
-        <li><a href="/comunicacion/publicaciones">Publicaciones</a></li>
+        <li><a class="green-text" href="/comunicacion/comunicados">Comunicados</a></li>
+        <li><a class="green-text" href="/comunicacion/acciones">Acciones urgentes</a></li>
+        <li><a class="green-text" href="/comunicacion/videos">Videos</a></li>
+        <li><a class="green-text" href="/comunicacion/publicaciones">Publicaciones</a></li>
       </ul>
-      <nav class="teal main-nav">
+      <nav class="green main-nav">
         <div class="navbar-container">
           <div class="nav-wrapper">
             <a href="/" class="brand-logo">CADHAC</a>
@@ -74,7 +74,7 @@
               <li class="no-padding">
                 <ul class="collapsible collapsible-accordion">
                   <li>
-                    <a class=" collapsible-header waves-effect waves-teal">Sobre nosotros<i class="material-icons right">arrow_drop_down</i></a>
+                    <a class="collapsible-header waves-effect waves-green">Sobre nosotros<i class="material-icons right">arrow_drop_down</i></a>
                     <div class="collapsible-body">
                       <ul>
                         <li><a href="/sobre_nosotros/acerca">Acerca de nosotros</a></li>
@@ -88,7 +88,7 @@
               <li class="no-padding">
                 <ul class="collapsible collapsible-accordion">
                   <li>
-                    <a class=" collapsible-header waves-effect waves-teal">Comunicación<i class="material-icons right">arrow_drop_down</i></a>
+                    <a class=" collapsible-header waves-effect waves-green">Comunicación<i class="material-icons right">arrow_drop_down</i></a>
                     <div class="collapsible-body">
                       <ul>
                         <li><a href="/noticias/comunicados">Comunicados</a></li>
@@ -122,12 +122,17 @@
         $('.carousel.carousel-slider').carousel({full_width: true});
         $('select').material_select();
         $('.slider').slider({full_width: true});
+        $('.modal-trigger').leanModal();
+        $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
       });
     </script>
   </body>
   <main>
   </main>
-  <footer class="page-footer teal">
+  <footer class="page-footer green">
     <div class="footer-copyright">
       <div class="container">
       © 2016 Copyright Text

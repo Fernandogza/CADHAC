@@ -83,7 +83,7 @@
   </div>
   <h5>Comunicados</h5>
   <div class="row">
-    {% for comunicado in comunicados | slice(0, 2) %}
+    {% for comunicado in comunicados | slice(0, 3) %}
       <div class="col s12 m6 l4">
         <div class="card">
           <div class="card-image">
@@ -95,7 +95,7 @@
             <p class="truncate">{{comunicado.texto}}</p>
           </div>
           <div class="card-action">
-            <a class="teal-text" href="/comunicacion/comunicados/{{comunicado.id}}">Leer más</a>
+            <a class="green-text" href="/comunicacion/comunicados/{{comunicado.id}}">Leer más</a>
           </div>
         </div>
       </div>
@@ -103,9 +103,9 @@
   </div>
   <h5>Acciones urgentes</h5>
   <ul class="collapsible popout" data-collapsible="accordion">
-    {% for accion in acciones | slice(0, 2) %}
+    {% for accion in acciones | slice(0, 3) %}
       <li>
-        <div class="collapsible-header teal-text">{{accion.titulo}}</div>
+        <div class="collapsible-header green-text">{{accion.titulo}}</div>
         <div class="collapsible-body"><p><span class="grey-text darken-4">{{accion.fecha|date('d M Y')}}</span> <br>{{accion.texto}}</p></div>
       </li>
     {% endfor %}

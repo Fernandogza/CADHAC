@@ -1,0 +1,95 @@
+{% extends "base/template.html.twig" %}
+
+{% block content %}
+<div class="container">
+  <form action="/desaparecidos/edit/{{desaparecido.id}}" method="POST" enctype="multipart/form-data">
+    <div class="modal-content">
+      <h4>Editar desaparecido</h4>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="nombre" name="nombre" type="text" class="validate" value="{{desaparecido.nombre}}" required>
+            <label for="nombre">Nombre</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="lugar" name="lugar" type="text" class="validate" value="{{desaparecido.lugar}}" required>
+            <label for="lugar">Lugar</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Fecha" name="fecha" id="fecha" type="date" value="{{desaparecido.fecha}}" class="datepicker">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="descripcion" name="descripcion" type="text" class="validate" value="{{desaparecido.descripcion}}" required>
+            <label for="descripcion">Descripcion</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="estado_civil" name="estado_civil" type="text" value="{{desaparecido.estado_civil}}" class="validate">
+            <label for="estado_civil">Estado civil</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="ocupacion" name="ocupacion" type="text" value="{{desaparecido.ocupacion}}" class="validate">
+            <label for="ocupacion">Ocupación</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="edad" name="edad" type="number" value="{{desaparecido.edad}}" class="validate">
+            <label for="edad">Edad</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="talla" name="talla" type="number" value="{{desaparecido.talla}}" class="validate">
+            <label for="talla">Talla</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="tez" name="tez" type="text" value="{{desaparecido.tez}}" class="validate">
+            <label for="tez">Tez</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="ojos" name="ojos" type="text" value="{{desaparecido.ojos}}" class="validate">
+            <label for="ojos">Ojos</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="otras_senias" name="otras_senias" class="materialize-textarea">{{desaparecido.otras_senias}}</textarea>
+            <label for="otras_senias">Otras señas</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn green">
+              <span>Foto</span>
+              <input type="file" name="image" accept="image/*">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            <p>Formatos soportados: jpeg, jpg, png</p>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action waves-effect waves-green btn-flat green white-text">Guardar</button>
+      <button type="button" onclick="location.href='/desaparecidos'" class="modal-action waves-effect waves-green btn-flat red white-text">Cancelar</button>
+    </div>
+  </form>
+</div>
+  <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large green">
+      <i class="material-icons">settings</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating red modal-trigger" href="#addModal"><i class="material-icons">add</i></a></li>
+    </ul>
+  </div>
+</div>
+{% endblock content %}
+{% block customjs %}
+{% endblock customjs %}

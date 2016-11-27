@@ -1,0 +1,134 @@
+{% extends "base/template.html.twig" %}
+
+{% block customcss %}
+<style>
+.preloader-background {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #eee;
+
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+</style>
+{% endblock customcss %}
+
+{% block content %}
+<div class="preloader-background">
+	<div class="preloader-wrapper big active">
+		<div class="spinner-layer spinner-green-only">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<form action="/comunicacion/comunicados/edit/{{comunicado.id}}" method="POST" enctype="multipart/form-data">
+		<div class="modal-content">
+			<h4>Editar comunicado</h4>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="titulo" name="titulo" type="text" class="validate" required value="{{comunicado.titulo}}">
+						<label for="titulo">Título</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="file-field input-field col s12">
+						<div class="btn">
+							<span>Imagen</span>
+							<input type="file" name="image" accept="image/*">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>
+						<p>Formatos soportados: jpg, jpeg, png</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input placeholder="Fecha" name="fecha" id="fecha" type="date" class="datepicker" required value="{{comunicado.fecha}}">
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<textarea id="texto" name="texto" class="materialize-textarea articulo" required></textarea>
+						<label for="texto">Texto</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="file-field input-field col s12">
+						<div class="btn">
+							<span>Más imágenes</span>
+							<input type="file" name="files[]" multiple accept="image/*">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>
+						<p>Formatos soportados: jpg, jpeg, png</p>
+					</div>
+				</div>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="modal-action waves-effect waves-green btn-flat green white-text">Guardar</button>
+      <button type="button" onclick="location.href='/comunicacion/comunicados/{{comunicado.id}}'" class="modal-action waves-effect waves-green btn-flat red white-text">Cancelar</button>
+		</div>
+	</form>
+</div>
+{% endblock content %}
+
+{% block customjs %}
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  $('.preloader-background').delay(1700).fadeOut('slow');
+
+  $('.preloader-wrapper')
+    .delay(1700)
+    .fadeOut();
+  });
+  function parseText() {
+    var text = "{{comunicado.texto}}";
+    var arr = text.split("^");
+		var str = "";
+    for(i=0; i<arr.length; i++) {
+			str = str + arr[i] + "\n";
+    }
+		var articulo = document.getElementsByClassName("articulo");
+		articulo[0].innerHTML = str;
+  }
+  window.onload = parseText;
+
+	$("textarea").keydown(function(e) {
+	  if(e.keyCode === 9) { // tab was pressed
+	      // get caret position/selection
+	      var start = this.selectionStart;
+	          end = this.selectionEnd;
+
+	      var $this = $(this);
+
+	      // set textarea value to: text before caret + tab + text after caret
+	      $this.val($this.val().substring(0, start)
+	                  + "\t"
+	                  + $this.val().substring(end));
+
+	      // put caret at right position again
+	      this.selectionStart = this.selectionEnd = start + 1;
+
+	      // prevent the focus lose
+	      return false;
+	  }
+	});
+</script>
+{% endblock customjs %}

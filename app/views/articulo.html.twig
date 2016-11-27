@@ -1,40 +1,108 @@
 {% extends "base/template.html.twig" %}
 
+{% block customcss %}
+<style>
+.preloader-background {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #eee;
+
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+</style>
+{% endblock customcss %}
+
 {% block content %}
+<div class="preloader-background">
+	<div class="preloader-wrapper big active">
+		<div class="spinner-layer spinner-green-only">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="container">
   <h4>{{comunicado.titulo|upper}}</h4>
   <div class="row">
     <div class="navbar-container">
       <p class="grey-text left">{{comunicado.fecha|date("d M Y")}}</p>
       <ul>
-        <li class="right" style="padding-right:15px;"><a class="blue-text text-darken-4" href="https://www.facebook.com/sharer/sharer.php?u=http://www.cadhac.org/comunicado/dia-internacional-de-las-victimas-de-desaparicion-forzada-exigimos-justicia-y-reparacion-de-dano-para-las-victimas/" onclick="window.open(this.href, '_blank', 'width=700, height=500'); return false;"><i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i></a></li>
-        <li class="right" style="padding-right:15px;"><a class="blue-text" href="https://twitter.com/home?status=http://www.cadhac.org/comunicado/dia-internacional-de-las-victimas-de-desaparicion-forzada-exigimos-justicia-y-reparacion-de-dano-para-las-victimas/" onclick="window.open(this.href, '_blank', 'width=700, height=500'); return false;"><i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i></a></li>
-        <li class="right" style="padding-right:15px;"><a class="red-text text-darken-1" href="https://plus.google.com/share?url=http://www.cadhac.org/comunicado/dia-internacional-de-las-victimas-de-desaparicion-forzada-exigimos-justicia-y-reparacion-de-dano-para-las-victimas/" onclick="window.open(this.href, '_blank', 'width=700, height=500'); return false;"><i class="fa fa-google-plus-official fa-3x" aria-hidden="true"></i></a></li>
+        <li class="right" style="padding-right:15px;"><a class="blue-text text-darken-4" href="https://www.facebook.com/sharer/sharer.php?u=http://www.cadhac.org/comunicacion/comunicados/{{comunicado.id}}" onclick="window.open(this.href, '_blank', 'width=700, height=500'); return false;"><i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i></a></li>
+        <li class="right" style="padding-right:15px;"><a class="blue-text" href="https://twitter.com/home?status=http://www.cadhac.org/comunicacion/comunicados/{{comunicado.id}}" onclick="window.open(this.href, '_blank', 'width=700, height=500'); return false;"><i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i></a></li>
+        <li class="right" style="padding-right:15px;"><a class="red-text text-darken-1" href="https://plus.google.com/share?url=http://www.cadhac.org/comunicacion/comunicados/{{comunicado.id}}" onclick="window.open(this.href, '_blank', 'width=700, height=500'); return false;"><i class="fa fa-google-plus-official fa-3x" aria-hidden="true"></i></a></li>
       </ul>
     </div>
   </div>
   <div class="row">
     <div class="col s12 m10 l8 push-m1 push-l2">
+      {% if comunicado.imagen %}
       <img class="responsive-img" src="/web/comunicados/{{comunicado.imagen}}">
+      {% endif %}
     </div>
   </div>
   <div class="row">
-    <div class="col s12 m12 l12">
-      {{comunicado.texto|raw}}
+    <div class="col s12 m12 l12 articulo">
     </div>
   </div>
+
+  {% if imagenes|length > 0 %}
+  <div class="slider">
+    <ul class="slides">
+      {% for imagen in imagenes %}
+        <li>
+          <img src="/web/comunicados/imagenes/{{imagen.imagen}}">
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large teal">
+    <a class="btn-floating btn-large green">
       <i class="material-icons">settings</i>
     </a>
     <ul>
-      <li><a class="btn-floating red"><i class="material-icons">add</i></a></li>
-      <li><a class="btn-floating yellow darken-1"><i class="material-icons">mode_edit</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons">delete</i></a></li>
+      <li><a class="btn-floating yellow darken-1" href="/comunicacion/comunicados/edit/{{comunicado.id}}"><i class="material-icons">mode_edit</i></a></li>
+      <li><a href="/comunicacion/comunicados/delete/{{comunicado.id}}" onclick="return confirm('Seguro que deseas borrar?');" class="btn-floating blue"><i class="material-icons">delete</i></a></li>
     </ul>
   </div>
 </div>
 {% endblock content %}
 
 {% block customjs %}
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  $('.preloader-background').delay(1700).fadeOut('slow');
+
+  $('.preloader-wrapper')
+    .delay(1700)
+    .fadeOut();
+  });
+  function parseText() {
+    var text = "{{comunicado.texto}}";
+    var arr = text.split("^");
+    for(i=0; i<arr.length; i++) {
+      var parr = document.createElement("p");
+      var articulo = document.getElementsByClassName("articulo");
+      parr.className = "flow-text";
+      parr.innerHTML = arr[i];
+      articulo[0].appendChild(parr);
+    }
+  }
+  window.onload = parseText;
+</script>
 {% endblock customjs %}

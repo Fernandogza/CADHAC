@@ -3,5 +3,62 @@
 {% block content %}
 <div class="container">
   <h5>Acciones urgentes</h5>
+  <div class="row">
+    <ul class="collapsible popout" data-collapsible="accordion">
+      {% for accion in acciones %}
+        <li>
+          <div class="collapsible-header green-text"><i class="material-icons">chevron_right</i>{{accion.titulo|upper}}</div>
+          <div class="collapsible-body">
+            <p>
+              <span class="grey-text darken-4">{{accion.fecha|date('d M Y')}}</span>
+              <br>{{accion.texto}}
+            </p>
+            <p>
+              <a class="btn-floating yellow darken-1" href="/comunicacion/acciones/edit/{{accion.id}}"><i class="material-icons">mode_edit</i></a>
+              <a class="btn-floating blue" href="/comunicacion/acciones/delete/{{accion.id}}" onclick="return confirm('Seguro que deseas borrar?');"><i class="material-icons">delete</i></a>
+            </p>
+          </div>
+        </li>
+      {% endfor %}
+   </ul>
+  </div>
+  <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large green">
+      <i class="material-icons">settings</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating red modal-trigger" href="#addModal"><i class="material-icons">add</i></a></li>
+    </ul>
+  </div>
 </div>
+
+<!-- Add Modal Space -->
+<div id="addModal" class="modal modal-fixed-footer">
+  <form action="/comunicacion/acciones/new" method="POST">
+    <div class="modal-content">
+      <h4>Nueva acción urgente</h4>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="titulo" name="titulo" type="text" class="validate" required>
+            <label for="titulo">Título</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Fecha" name="fecha" id="fecha" type="date" class="datepicker">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="texto" name="texto" class="materialize-textarea" required></textarea>
+            <label for="texto">Texto</label>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action waves-effect waves-green btn-flat ">Crear</button>
+    </div>
+  </form>
+</div>
+
 {% endblock content %}
