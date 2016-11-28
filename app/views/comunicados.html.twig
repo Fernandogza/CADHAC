@@ -30,7 +30,12 @@
     </div>
     {% endif %}
   {% endfor %}
+  <div class="pagination">
+      <div id="pagination-long"></div>
+  </div>
 </div>
+
+{% if user.role == 'admin' %}
 <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
   <a class="btn-floating btn-large green">
     <i class="material-icons">settings</i>
@@ -39,6 +44,7 @@
     <li><a class="btn-floating red modal-trigger" href="#addModal"><i class="material-icons">add</i></a></li>
   </ul>
 </div>
+{% endif %}
 
 <!-- Add Modal Space -->
 <div id="addModal" class="modal modal-fixed-footer">
@@ -114,6 +120,21 @@ $("textarea").keydown(function(e) {
       // prevent the focus lose
       return false;
   }
+});
+$(function() {
+$('#pagination-long').materializePagination({
+      align: 'center',
+      lastPage:  {{pages}},
+      firstPage:  1,
+      urlParameter: 'page',
+      currentPage: {{current}},
+      useUrlParameter: false,
+      onClickCallback: function(requestedPage){
+        current = {{current}};
+        if (requestedPage != current)
+          location.href = "/comunicacion/comunicados/page/" + requestedPage;
+      }
+  });
 });
 </script>
 {% endblock customjs %}

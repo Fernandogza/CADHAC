@@ -1,0 +1,48 @@
+{% extends "base/template.html.twig" %}
+
+{% block content %}
+<div class="container">
+  <form action="/comunicacion/publicaciones/edit/{{publicacion.id}}" method="POST" enctype="multipart/form-data">
+    <div class="modal-content">
+      <h4>Nueva publicación</h4>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="titulo" name="titulo" type="text" class="validate" required value="{{publicacion.titulo}}">
+            <label for="titulo">Título</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="descripcion" name="descripcion" type="text" class="validate" required value="{{publicacion.descripcion}}">
+            <label for="descripcion">Descripcion</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>PDF inglés</span>
+              <input type="file" name="ingles" accept="application/pdf">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>PDF español</span>
+              <input type="file" name="espanol" accept="application/pdf">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            <p>Formatos soportados: pdf</p>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action waves-effect waves-green btn-flat green white-text">Guardar</button>
+      <button type="button" onclick="location.href='/comunicacion/publicaciones'" class="modal-action waves-effect waves-green btn-flat red white-text">Cancelar</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

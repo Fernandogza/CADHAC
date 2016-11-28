@@ -19,7 +19,7 @@ $app->get("/admin/logout", function () use ($app) {
 $app->get("/admin/login", function () use ($app) {
 
   if(isset($_SESSION['user'])){
-    $app->redirect("/dashboard");
+    $app->redirect("/");
   }
   $env = $app->environment();
 
@@ -181,7 +181,7 @@ $app->get("/admin/signup", function () use ($app) {
 $app->post("/admin/login", function () use ($app) {
   $env = $app->environment();
   $post = (object)$app->request()->post();
-  $email    =   $post->email;
+  $user    =   $post->username;
   $password   = md5($post->password);
 
   $errors = array();
@@ -189,14 +189,8 @@ $app->post("/admin/login", function () use ($app) {
   /*
   * Logica de login
   */
-  $user = R::findOne('user',' email = :param ',
-             array(':param' => $email ));
-
-  if (!$user || $user->role != 'admin') {
-      $errors['password'] = "Email o password incorrecto.";
-  } else if ($password != $user->password) {
-      $app->flash('email', $email);
-      $errors['password'] = "Email o password incorrecto.";
+  if ($user != "CADHAC") {
+    $errors['password'] = "Email o password incorrecto.";
   }
 
   if (count($errors) > 0) {
@@ -206,9 +200,7 @@ $app->post("/admin/login", function () use ($app) {
 
   $_SESSION['user'] = $user;
 
-  $_SESSION['id']     = $user->id;
-  $_SESSION['nombre'] = $user->firstName;
-  $_SESSION['role'] = $user->role;
+  $_SESSION['role'] = "admin";
 
   if (isset($_SESSION['urlRedirect'])) {
        $tmp = $_SESSION['urlRedirect'];
@@ -216,7 +208,7 @@ $app->post("/admin/login", function () use ($app) {
        $app->redirect($env['rootUri'].substr($tmp,1));
   }
 
-  $app->redirect('/dashboard');
+  $app->redirect('/');
 });
 
 $app->post("/login", function () use ($app) {

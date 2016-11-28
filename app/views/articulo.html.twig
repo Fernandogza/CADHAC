@@ -71,6 +71,7 @@
   </div>
   {% endif %}
 
+	{% if user.role == 'admin' %}
   <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large green">
       <i class="material-icons">settings</i>
@@ -80,6 +81,7 @@
       <li><a href="/comunicacion/comunicados/delete/{{comunicado.id}}" onclick="return confirm('Seguro que deseas borrar?');" class="btn-floating blue"><i class="material-icons">delete</i></a></li>
     </ul>
   </div>
+	{% endif %}
 </div>
 {% endblock content %}
 
