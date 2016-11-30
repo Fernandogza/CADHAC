@@ -8,7 +8,7 @@
     <div class="col s12 m12 l6">
       <div class="card white">
         <div class="card-content">
-          <span class="card-title">{{publicacion.titulo}}</span>
+          <span class="card-title"><strong>{{publicacion.titulo|upper}}</strong></span>
           <p>{{publicacion.descripcion}}</p>
         </div>
         <div class="card-action">
@@ -57,7 +57,7 @@
         </div>
         <div class="row">
           <div class="file-field input-field col s12">
-            <div class="btn">
+            <div class="btn green">
               <span>PDF inglés</span>
               <input type="file" name="ingles" accept="application/pdf">
             </div>
@@ -68,7 +68,7 @@
         </div>
         <div class="row">
           <div class="file-field input-field col s12">
-            <div class="btn">
+            <div class="btn green">
               <span>PDF español</span>
               <input type="file" name="espanol" accept="application/pdf">
             </div>

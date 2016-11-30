@@ -14,7 +14,7 @@
             <img class="materialboxed" src="/web/media/{{imagenes[loop.index0]}}">
           </div>
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">{{evento.nombre}}</span>
+            <span class="card-title activator grey-text text-darken-4"><strong>{{evento.nombre|upper}}</strong></span>
             <p>{{evento.fecha|date('d M Y')}}</p>
             {% if user.role == 'admin' %}
             <p class="right">

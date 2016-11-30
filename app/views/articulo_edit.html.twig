@@ -47,7 +47,7 @@
 				</div>
 				<div class="row">
 					<div class="file-field input-field col s12">
-						<div class="btn">
+						<div class="btn green">
 							<span>Imagen</span>
 							<input type="file" name="image" accept="image/*">
 						</div>
@@ -70,7 +70,7 @@
 				</div>
 				<div class="row">
 					<div class="file-field input-field col s12">
-						<div class="btn">
+						<div class="btn green">
 							<span>Más imágenes</span>
 							<input type="file" name="files[]" multiple accept="image/*">
 						</div>
@@ -92,10 +92,10 @@
 {% block customjs %}
 <script>
   document.addEventListener("DOMContentLoaded", function(){
-  $('.preloader-background').delay(1700).fadeOut('slow');
+  $('.preloader-background').delay(1000).fadeOut('slow');
 
   $('.preloader-wrapper')
-    .delay(1700)
+    .delay(1000)
     .fadeOut();
   });
   function parseText() {

@@ -67,7 +67,7 @@
   <ul class="collapsible popout" data-collapsible="accordion">
     {% for accion in acciones | slice(0, 3) %}
       <li>
-        <div class="collapsible-header green-text">{{accion.titulo}}</div>
+        <div class="collapsible-header green-text">{{accion.titulo|upper}}</div>
         <div class="collapsible-body"><p><span class="grey-text darken-4">{{accion.fecha|date('d M Y')}}</span> <br>{{accion.texto}}</p></div>
       </li>
     {% endfor %}

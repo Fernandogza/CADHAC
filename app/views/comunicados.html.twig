@@ -4,31 +4,17 @@
 <div class="container">
   <h4>Comunicados</h4>
   {% for comunicado in comunicados %}
-    {% if loop.index0 > 5 %}
-    <div class="row z-depth-1 scroll">
+    <div class="row z-depth-1">
       <div class="col s12 m4 l4">
         <a href="/comunicacion/comunicados/{{comunicado.id}}">
         <img class="responsive-img" src="/web/comunicados/{{comunicado.imagen}}"></a>
       </div>
       <div class="col s12 m8 l8">
-        <a href="/comunicacion/comunicados/{{comunicado.id}}" class="flow-text black-text"><strong>{{comunicado.titulo}}</strong></a>
+        <a href="/comunicacion/comunicados/{{comunicado.id}}" class="flow-text black-text"><strong>{{comunicado.titulo|upper}}</strong></a>
         <p class="grey-text">{{comunicado.fecha|date("d M Y")}}</p>
         <p class="flow-text truncate">{{comunicado.texto}}</p>
       </div>
     </div>
-    {% else %}
-    <div class="row z-depth-1 show">
-      <div class="col s12 m4 l4">
-        <a href="/comunicacion/comunicados/{{comunicado.id}}">
-        <img class="responsive-img" src="/web/comunicados/{{comunicado.imagen}}"></a>
-      </div>
-      <div class="col s12 m8 l8">
-        <a href="/comunicacion/comunicados/{{comunicado.id}}" class="flow-text black-text"><strong>{{comunicado.titulo}}</strong></a>
-        <p class="grey-text">{{comunicado.fecha|date("d M Y")}}</p>
-        <p class="flow-text truncate">{{comunicado.texto}}</p>
-      </div>
-    </div>
-    {% endif %}
   {% endfor %}
   <div class="pagination">
       <div id="pagination-long"></div>
@@ -59,7 +45,7 @@
         </div>
         <div class="row">
           <div class="file-field input-field col s12">
-            <div class="btn">
+            <div class="btn green">
               <span>Imagen</span>
               <input type="file" name="image" accept="image/*">
             </div>
@@ -82,7 +68,7 @@
         </div>
         <div class="row">
           <div class="file-field input-field col s12">
-            <div class="btn">
+            <div class="btn green">
               <span>Más imágenes</span>
               <input type="file" name="files[]" multiple accept="image/*">
             </div>
@@ -94,7 +80,7 @@
         </div>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="modal-action waves-effect waves-green btn-flat ">Crear</button>
+      <button type="submit" class="modal-action waves-effect waves-green btn-flat ">Publicar</button>
     </div>
   </form>
 </div>
