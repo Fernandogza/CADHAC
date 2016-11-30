@@ -24,7 +24,6 @@
           min-height: 100vh;
           flex-direction: column;
         }
-
         main {
           flex: 1 0 auto;
         }
@@ -39,6 +38,9 @@
       <nav class="top-navbar green darken-2" >
         <div class="navbar-container">
           <a class="left">Contáctenos: +52 (81) 83435058</a>
+          {% if user.role == 'admin' %}
+          <a class="right" href="/logout">Logout</a>
+          {% endif %}
           <ul class="right hide-on-small-only">
             <li><a href="https://www.twitter.com/cadhac/"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
             <li><a href="https://www.facebook.com/cadhac/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -55,8 +57,13 @@
       <ul id="noticias_dropdown" class="dropdown-content">
         <li><a class="green-text" href="/comunicacion/comunicados">Comunicados</a></li>
         <li><a class="green-text" href="/comunicacion/acciones">Acciones urgentes</a></li>
+        <li><a class="green-text" href="/comunicacion/eventos">Eventos</a></li>
         <li><a class="green-text" href="/comunicacion/videos">Videos</a></li>
-        <li><a class="green-text" href="/comunicacion/publicaciones">Publicaciones</a></li>
+        <li><a class="green-text" href="/comunicacion/publicaciones">Publicaciones/Informes</a></li>
+      </ul>
+      <ul id="desaparecidos_dropdown" class="dropdown-content">
+        <li><a class="green-text" href="/desaparecidos">Desaparecidos/as</a></li>
+        <li><a class="green-text" href="/amores">Amores</a></li>
       </ul>
       <nav class="green main-nav">
         <div class="navbar-container">
@@ -67,7 +74,7 @@
             <ul class="right hide-on-med-and-down">
               <li><a class="dropdown-button" data-activates="acerca_dropdown" data-beloworigin="true" data-hover="true">Sobre nosotros</a></li>
               <li><a class="dropdown-button" data-activates="noticias_dropdown" data-beloworigin="true" data-hover="true">Comunicación</a></li>
-              <li><a href="/desaparecidos">Desaparecidos/as</a></li>
+              <li><a class="dropdown-button" data-activates="desaparecidos_dropdown" data-beloworigin="true" data-hover="true">Desapariciones</a></li>
               <li><a href="/donativos" class="orange">Done Ahora</a></li>
             </ul>
             <ul class="side-nav" id="mobile-bar">
@@ -91,14 +98,29 @@
                     <a class=" collapsible-header waves-effect waves-green">Comunicación<i class="material-icons right">arrow_drop_down</i></a>
                     <div class="collapsible-body">
                       <ul>
-                        <li><a href="/noticias/comunicados">Comunicados</a></li>
-                        <li><a href="/noticias/publicaciones">Publicaciones</a></li>
+                        <li><a href="/comunicacion/comunicados">Comunicados</a></li>
+                        <li><a href="/comunicacion/acciones">Acciones urgentes</a></li>
+                        <li><a href="/comunicacion/eventos">Eventos</a></li>
+                        <li><a href="/comunicacion/videos">Videos</a></li>
+                        <li><a href="/comunicacion/publicaciones">Publicaciones</a></li>
                       </ul>
                     </div>
                   </li>
                 </ul>
               </li>
-              <li><a href="">Desaparecidos/as</a></li>
+              <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                  <li>
+                    <a class=" collapsible-header waves-effect waves-green">Desapariciones<i class="material-icons right">arrow_drop_down</i></a>
+                    <div class="collapsible-body">
+                      <ul>
+                        <li><a href="/desaparecidos">Desaparecidos/as</a></li>
+                        <li><a href="/amores">Amores</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
               <li><a href="/donativos" class="orange">Done Ahora</a></li>
             </ul>
           </div>
@@ -135,7 +157,7 @@
   <footer class="page-footer green">
     <div class="footer-copyright">
       <div class="container">
-      © 2016 Copyright Text
+      © 2016 Copyright
       </div>
     </div>
   </footer>

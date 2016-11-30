@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-  <h4>Publicaciones</h4>
+  <h4>Publicaciones / Informes</h4>
   <div class="row">
     {% for publicacion in publicaciones %}
     <div class="col s12 m12 l6">
@@ -44,7 +44,7 @@
 <div id="addModal" class="modal modal-fixed-footer">
   <form action="/comunicacion/publicaciones/new" method="POST" enctype="multipart/form-data">
     <div class="modal-content">
-      <h4>Nueva publicación</h4>
+      <h4>Nueva publicación / informe</h4>
         <div class="row">
           <div class="input-field col s6">
             <input id="titulo" name="titulo" type="text" class="validate" required>
