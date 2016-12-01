@@ -1,1 +1,32 @@
+
+Instalación
+
+1) Instalar WAMP/LAMP/XAMP de acuerdo a tu sistema operativo.
+2) Crear una base de datos en localhost/phpmyadmin con el nombre de "cadhac".
+3) Correr el script: "db_cadhac_sql" para crear las tablas.
+4) Cambiar el usuario/password del archivo "database.php" localizado en /app/config/database.php para hacer la conexión a phpmyadmin.
+5) Descargar el proyecto de GITHUB: https://github.com/Fernandogza/CADHAC
+6) Extraer los archivos en el folder htdocs o www (segun la versión de LAMP/WAMP/XAMP que utilizan).
+  Nota: Asegurarse de que los archivos queden extraidos en este folder y no dentro de otro.
+        Ejemplo: C:\wamp64\www\app, C:\wamp64\www\vendor, C:\wamp64\www\web, etc.
+
+
+Tecnologías
+Server
+WampServer 3.0.6 64bit
+Apache 2.4.23
+Base de datos
+MySQL 5.7.14
+Lenguajes de programación
+PHP 5.6.25
+JavaScript
+
+Frameworks
+SLIM (PHP)
+RedBean 3.5 (ORM)
+JQuery 3.1.1 (JavaScript)
+Twig 1.28.0 (Template Engine)
+Materialize CSS 0.97.8 (CSS Framework)
+
+
 CADHAC github repo.
